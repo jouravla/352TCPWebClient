@@ -2,9 +2,9 @@ import java.io.*;
 import java.net.*;
 
 /**
- * 
- * 
- * CTRL + C will terminate the program
+ * Implemented the HTTP GET method. Program retrieves any valid web page on a web server.
+ * Will print all data associated with the HTTP Response.
+ * CTRL + C will terminate the program.
  * 
  * @author - Sasha Jouravlev
  */
@@ -29,11 +29,14 @@ class TCPClient {
 		//Send the HTTP Request
 		outToServer.writeBytes("GET " + resource + " HTTP/1.1\n"+ "Host: " + hostname + "\n\n");
 		
+		//Print everything in the BufferedReader
 		String upNext;
-		while((upNext=inFromServer.readLine())!=null){
+		while(null!=(upNext=inFromServer.readLine())){
 			System.out.println(upNext);
 		}
 		
+		//Close and Exit
+		outToServer.close();
 		inFromServer.close();
 		clientSocket.close();
 		System.exit(1);
